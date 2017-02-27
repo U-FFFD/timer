@@ -10,6 +10,8 @@
   * Owen
 */
 
+import java.util.*;
+
 public class ChronoTimer{
   // enum defines the event commands
   public enum Event{
@@ -26,9 +28,13 @@ public class ChronoTimer{
   }
 
   private Time theTimer;
+  private int racerCount;
+
+  private Queue<Racer> racerQueue = new LinkedList<Racer>();
 
   public ChronoTimer(){
     theTimer = new Timer;
+    racerCount = 0;
   }
 
   // Used by simulator to pass in events
@@ -57,8 +63,10 @@ public class ChronoTimer{
         case TRIG:
           break;
         case START:
+          startRacer();
           break;
         case FINISH:
+          finishRacer();
           break;
         case default:
           break;
@@ -66,11 +74,24 @@ public class ChronoTimer{
     }
   }
 
+  private void startRacer(){
+    // adds a new racer to the currently racing queue
+    racerQueue.add(new Racer(id = racerCount++, startTime = theTimer.getTime()));
+  }
+
+  private void finishRacer(){
+    // remove top racer from queue
+    Racer finished = racerQueue.remove();
+    // set their finish time
+    finished.endTime = theTimer.getTime();
+    // TODO: store finished racer in finished list
+  }
+
   // inner class for encapsulating a racer's data
   private class Racer{
-    public long startTime;
-    public long endTime;
-    public int ID;
+    public double startTime;
+    public double endTime;
+    public int id;
   }
 
   private
