@@ -26,7 +26,6 @@ public class ChronoTimer{
   }
 
   private Time theTimer;
-  private Event currEvent;
 
   public ChronoTimer(){
     theTimer = new Timer;
@@ -34,14 +33,38 @@ public class ChronoTimer{
     mainLoop();
   }
 
+  // Used by simulator to pass in events
   public void sendEvent(Event e)
   {
-    currEvent = e;
+    handleEvent(e);
   }
 
-  private void mainLoop(){
-    while (running) {
-      handleEvent(currEvent);
+  private void handleEvent(Event e){
+    if (e != null){
+      switch (e){
+        case POWER:
+          break;
+        case EXIT:
+          break;
+        case RESET:
+          break;
+        case TIME:
+          break;
+        case DNF:
+          break;
+        case CANCEL:
+          break;
+        case TOG:
+          break;
+        case TRIG:
+          break;
+        case START:
+          break;
+        case FINISH:
+          break;
+        case default:
+          break;
+      }
     }
   }
 
