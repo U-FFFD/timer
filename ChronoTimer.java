@@ -33,7 +33,7 @@ public class ChronoTimer{
   private Queue<Racer> racerQueue = new LinkedList<Racer>();
 
   public ChronoTimer(){
-    theTimer = new Timer;
+    theTimer = new Time();
     racerCount = 0;
   }
 
@@ -68,7 +68,7 @@ public class ChronoTimer{
         case FINISH:
           finishRacer();
           break;
-        case default:
+        default:
           break;
       }
     }
@@ -76,7 +76,7 @@ public class ChronoTimer{
 
   private void startRacer(){
     // adds a new racer to the currently racing queue
-    racerQueue.add(new Racer(id = racerCount++, startTime = theTimer.getTime()));
+    racerQueue.add(new Racer());
   }
 
   private void finishRacer(){
@@ -92,7 +92,10 @@ public class ChronoTimer{
     public double startTime;
     public double endTime;
     public int id;
-  }
 
-  private
+    public Racer(){
+      id = racerCount++;
+      startTime = theTimer.getTime();
+    }
+  }
 }
