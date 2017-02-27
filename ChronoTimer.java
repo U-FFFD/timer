@@ -29,8 +29,6 @@ public class ChronoTimer{
 
   public ChronoTimer(){
     theTimer = new Timer;
-    currEvent = null;
-    mainLoop();
   }
 
   // Used by simulator to pass in events
@@ -67,8 +65,6 @@ public class ChronoTimer{
       }
     }
   }
-
-  private void handleEvent(String )
 
   // inner class for encapsulating a racer's data
   private class Racer{
