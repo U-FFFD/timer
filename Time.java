@@ -114,6 +114,11 @@ public class Time {
 //     }
     
         //new time format
+    public double getTime() { 
+        long enlapsed = elapsed();
+        return Double.parseDouble((String.format("%05d.%d", (enlapsed/ 1000000000) % 60,(enlapsed % 1000000000)/10000000))); 
+    }
+    
       public String toString() {
         long enlapsed = elapsed();
         return (String.format("%05d.%d", (enlapsed/ 1000000000) % 60,(enlapsed % 1000000000)/10000000)) + " seconds";  
