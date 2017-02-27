@@ -104,17 +104,7 @@ public class Time {
         } else
             return (end - start);
     }
-
-    /**
-     * Returns the number of seconds this Timer has elapsed
-     *
-     * @return The String of the number of seconds
-     */
-//     public String toString() {
-//         long enlapsed = elapsed();
-//         return ((double) enlapsed / 1000000000.0) + " Seconds";
-//     }
-    
+  
         //new time format
     public double getTime() { 
         long enlapsed = elapsed();
