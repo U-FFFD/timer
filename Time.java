@@ -108,9 +108,15 @@ public class Time {
      *
      * @return The String of the number of seconds
      */
-    public String toString() {
+//     public String toString() {
+//         long enlapsed = elapsed();
+//         return ((double) enlapsed / 1000000000.0) + " Seconds";
+//     }
+    
+        //new time format
+      public String toString() {
         long enlapsed = elapsed();
-        return ((double) enlapsed / 1000000000.0) + " Seconds";
+        return (String.format("%05d.%d", (enlapsed/ 1000000000) % 60,(enlapsed % 1000000000)/10000000)) + " seconds";  
     }
 
 }
