@@ -52,8 +52,8 @@ public class Time {
             return -1;
         } else if (isPaused()) {
             running = false;
-            paused = false;
-
+            paused = true;
+         
             return pausedStart - start;
         } else {
             end = System.nanoTime();
@@ -99,6 +99,8 @@ public class Time {
             if (isPaused())
                 return (pausedStart - start);
             return (System.nanoTime() - start);
+        } else if (!isRunning() && isPaused()) {
+        	return (pausedStart - start);
         } else
             return (end - start);
     }
