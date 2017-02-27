@@ -9,3 +9,13 @@
   * Kody
   * Owen
 */
+
+public class ChronoTimer{
+  // inner class for encapsulating a racer's data
+  private class Racer{
+    public long startTime;
+    public long endTime;
+    public int ID;
+  }
+
+}
