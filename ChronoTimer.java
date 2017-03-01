@@ -13,11 +13,17 @@
 import java.util.*;
 
 public class ChronoTimer{
+  public enum Mode{
+    IND,
+    PARIND,
+    GRP,
+    PARGRP
+  }
   // enum defines the event commands
 
   private Time theTimer;
   private int racerCount;
-  private Event mode = null;
+  private Mode mode = null;
 
   private Queue<Racer> racerQueue = new LinkedList<Racer>();
 
@@ -27,22 +33,17 @@ public class ChronoTimer{
   }
 
   // Used by simulator to pass in events
-  public void sendEvent(Event e, int arg)
+  public void sendEvent(Event e, String arg)
   {
-    System.out.println("Arg provided: " + arg);
-    if (mode == null){
-      if (e.isMode()){
-        mode = e;
-        System.out.println("Mode set: " + e.name());
-      }
-    }
-    else{
-      handleEvent(e, arg);
-    }
+    handleEvent(e, arg);
+
   }
 
-  private void handleEvent(Event e, int arg){
+  private void handleEvent(Event e, String arg){
     switch (e){
+      case EVENT:
+        setMode(arg);
+        break;
       case POWER:
         break;
       case EXIT:
@@ -67,6 +68,17 @@ public class ChronoTimer{
         break;
       default:
         break;
+    }
+  }
+
+  private void setMode(String mode){
+    if (mode != null){
+      for (Mode m : Mode.values()){
+        if (m.name().equals(mode)){
+          System.out.println("Event: " + m.name());
+          this.mode = m;
+        }
+      }
     }
   }
 

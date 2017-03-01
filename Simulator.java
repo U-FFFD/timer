@@ -18,11 +18,7 @@ public class Simulator{
         // convert the string to an event
         inputEvent = strToEvent(split[0]);
       }
-      // convert any args to an int. If no arg, defaults to -1
-      if (split[1] != null){
-        arg = Integer.parseInt(split[1]);
-      }
-      theTimer.sendEvent(inputEvent, arg);
+      theTimer.sendEvent(inputEvent, split[1]);
       inputEvent = null;
     }
   }
