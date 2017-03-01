@@ -46,8 +46,6 @@ public class ChronoTimer{
         break;
       case POWER:
         break;
-      case EXIT:
-        break;
       case RESET:
         break;
       case TIME:

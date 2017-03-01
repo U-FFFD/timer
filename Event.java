@@ -1,14 +1,34 @@
  public enum Event{
   // command
-  EVENT,
+  EVENT{
+    @Override public boolean needsArg(){
+      return true;
+    }
+  },
   POWER,
   EXIT,
   RESET,
-  TIME,
+  TIME{
+    @Override public boolean needsArg(){
+      return true;
+    }
+  },
   DNF,
   CANCEL,
-  TOG,
-  TRIG,
+  TOG{
+    @Override public boolean needsArg(){
+      return true;
+    }
+  },
+  TRIG{
+    @Override public boolean needsArg(){
+      return true;
+    }
+  },
   START,
-  FINISH
+  FINISH;
+
+  public boolean needsArg(){
+    return false;
+  }
 }

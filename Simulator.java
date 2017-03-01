@@ -18,6 +18,9 @@ public class Simulator{
         // convert the string to an event
         inputEvent = strToEvent(split[0]);
       }
+      if (inputEvent == Event.EXIT){
+        System.exit(0);
+      }
       theTimer.sendEvent(inputEvent, split[1]);
       inputEvent = null;
     }
