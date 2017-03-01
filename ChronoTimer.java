@@ -24,11 +24,18 @@ public class ChronoTimer{
     TOG,
     TRIG,
     START,
-    FINISH
+    FINISH;
+    enum MODE{
+      IND,
+      PARIND,
+      GRP,
+      PARGRP
+    };
   }
 
   private Time theTimer;
   private int racerCount;
+  private Event.MODE;
 
   private Queue<Racer> racerQueue = new LinkedList<Racer>();
 
@@ -38,13 +45,13 @@ public class ChronoTimer{
   }
 
   // Used by simulator to pass in events
-  public void sendEvent(Event e)
+  public void sendEvent(Event e, int arg)
   {
-    handleEvent(e);
+    if 
+    handleEvent(e, arg);
   }
 
-  private void handleEvent(Event e){
-    if (e != null){
+  private void handleEvent(Event e, int arg){
       switch (e){
         case POWER:
           break;
