@@ -13,11 +13,12 @@
 import java.util.*;
 
 public class ChronoTimer{
-  public enum Mode{
-    IND,
-    PARIND,
-    GRP,
-    PARGRP
+
+	public enum Mode{
+	    IND,
+	    PARIND,
+	    GRP,
+	    PARGRP
   }
   // enum defines the event commands
   private boolean running() = false;
@@ -26,7 +27,10 @@ public class ChronoTimer{
   // tracks whether channels are enabled
   private boolean[] channels = new boolean[8];
 
-  private Queue<Racer> racerQueue = new LinkedList<Racer>();
+  private Queue<Racer> 		racerQueue 	 = new LinkedList<Racer>();
+  private Queue<Racer> 		currentQueue = new LinkedList<Racer>();
+  private ArrayList<Racer> 	finishedList = new ArrayList<Racer>();
+
 
   public ChronoTimer(){
     theTimer = new Time();
@@ -36,10 +40,10 @@ public class ChronoTimer{
   public void sendEvent(Event e, String arg)
   {
     handleEvent(e, arg);
-
   }
 
   private void handleEvent(Event e, String arg){
+<<<<<<< HEAD
     switch (e){
       case EVENT:
         setMode(arg);
@@ -87,14 +91,18 @@ public class ChronoTimer{
   }
 
   private void setMode(String mode){
-    if (mode != null){
-      for (Mode m : Mode.values()){
-        if (m.name().equals(mode)){
-          System.out.println("Event: " + m.name());
-          this.mode = m;
-        }
-      }
-    }
+	    if (mode != null){
+	      for (Mode m : Mode.values()){
+	        if (m.name().equals(mode)){
+	          System.out.println("Event: " + m.name());
+	          this.mode = m;
+	        }
+	      }
+	    }
+	  }
+
+  public void addRacer(int id) {
+	  racerQueue.add(new Racer(id));
   }
 
   private void toggleChannel(String channel){
@@ -105,27 +113,43 @@ public class ChronoTimer{
   }
 
   private void startRacer(){
-    // adds a new racer to the currently racing queue
-    racerQueue.add(new Racer());
+    // moves racer from racerQueue to the currently racing queue and sets their start time.
+	  Racer tempRacer = racerQueue.remove();
+	  tempRacer.startTime = theTimer.getTime();
+	  currentQueue.add(tempRacer);
+  }
+
+  public void dnfRacer() {
+	  // TODO
+
   }
 
   private void finishRacer(){
     // remove top racer from queue
-    Racer finished = racerQueue.remove();
+    Racer finishedRacer = currentQueue.remove();
+
     // set their finish time
-    finished.endTime = theTimer.getTime();
-    // TODO: store finished racer in finished list
+    finishedRacer.endTime = theTimer.getTime();
+    finishedRacer.raceTime = finishedRacer.endTime - finishedRacer.startTime;
+
+    //store finished racer in finished list
+    finishedList.add(finishedRacer);
   }
 
   // inner class for encapsulating a racer's data
   private class Racer{
     public double startTime;
     public double endTime;
+    public double raceTime;
     public int id;
+
+    // TODO create state of racer.
 
     public Racer(){
       id = racerCount++;
-      startTime = theTimer.getTime();
+    }
+    public Racer(int idNum) {
+        id = idNum;
     }
   }
 }
