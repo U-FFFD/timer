@@ -29,6 +29,7 @@ public class ChronoTimer{
   // Used by simulator to pass in events
   public void sendEvent(Event e, int arg)
   {
+    System.out.println("Arg provided: " + arg);
     if (mode == null){
       if (e.isMode()){
         mode = e;

@@ -7,17 +7,22 @@ public class Simulator{
 
   public void listen(){
     Scanner sc = new Scanner(System.in);
+    String[] split = new String[2];
     Event inputEvent = null;
-    int[] args = null;
+    int arg = -1;
 
     while (running){
       // wait for a valid input
       while (inputEvent == null){
-        String[] split = parse(sc.nextLine());
+        split = parse(sc.nextLine());
+        // convert the string to an event
         inputEvent = strToEvent(split[0]);
       }
-      // this code just for testing
-      theTimer.sendEvent(inputEvent, 0);
+      // convert any args to an int. If no arg, defaults to -1
+      if (split[1] != null){
+        arg = Integer.parseInt(split[1]);
+      }
+      theTimer.sendEvent(inputEvent, arg);
       inputEvent = null;
     }
   }
