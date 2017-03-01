@@ -40,6 +40,7 @@ public class ChronoTimer{
   // Used by simulator to pass in events
   public void sendEvent(Event e, String arg)
   {
+    // TODO: Check here if the Event needs an arg?
     handleEvent(e, arg);
   }
 
