@@ -17,7 +17,7 @@ public class ChronoTimer{
 
   private Time theTimer;
   private int racerCount;
-  private Event.MODE mode;
+  private Event mode = null;
 
   private Queue<Racer> racerQueue = new LinkedList<Racer>();
 
@@ -29,37 +29,43 @@ public class ChronoTimer{
   // Used by simulator to pass in events
   public void sendEvent(Event e, int arg)
   {
-    if
-    handleEvent(e, arg);
+    if (mode == null){
+      if (e.isMode()){
+        mode = e;
+        System.out.println("Mode set: " + e.name());
+      }
+    }
+    else{
+      handleEvent(e, arg);
+    }
   }
 
   private void handleEvent(Event e, int arg){
-      switch (e){
-        case POWER:
-          break;
-        case EXIT:
-          break;
-        case RESET:
-          break;
-        case TIME:
-          break;
-        case DNF:
-          break;
-        case CANCEL:
-          break;
-        case TOG:
-          break;
-        case TRIG:
-          break;
-        case START:
-          startRacer();
-          break;
-        case FINISH:
-          finishRacer();
-          break;
-        default:
-          break;
-      }
+    switch (e){
+      case POWER:
+        break;
+      case EXIT:
+        break;
+      case RESET:
+        break;
+      case TIME:
+        break;
+      case DNF:
+        break;
+      case CANCEL:
+        break;
+      case TOG:
+        break;
+      case TRIG:
+        break;
+      case START:
+        startRacer();
+        break;
+      case FINISH:
+        finishRacer();
+        break;
+      default:
+        break;
     }
   }
 

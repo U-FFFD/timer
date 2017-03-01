@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Simulator{
 
   private boolean running = true;
+  private ChronoTimer theTimer = new ChronoTimer();
 
   public void listen(){
     Scanner sc = new Scanner(System.in);
@@ -16,7 +17,7 @@ public class Simulator{
         inputEvent = strToEvent(split[0]);
       }
       // this code just for testing
-      System.out.println("sent: " + inputEvent.name());
+      theTimer.sendEvent(inputEvent, 0);
       inputEvent = null;
     }
   }
@@ -38,14 +39,6 @@ public class Simulator{
   }
 
   public static void main(String[] args){
-    System.out.println("Available commands:");
-    for (Event e : Event.values()){
-      System.out.println(e.name());
-    }
-
-    System.out.println(Event.MODE.IND.name());
-
-
     Simulator sim = new Simulator();
     sim.listen();
   }

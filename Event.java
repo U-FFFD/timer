@@ -1,4 +1,4 @@
-public enum Event{
+ public enum Event{
   // command
   POWER,
   EXIT,
@@ -9,12 +9,30 @@ public enum Event{
   TOG,
   TRIG,
   START,
-  FINISH;
-  // mode
-  enum MODE{
-    IND,
-    PARIND,
-    GRP,
-    PARGRP
+  FINISH,
+
+  IND{
+    @Override public boolean isMode(){
+      return true;
+    }
+  },
+  PARIND{
+    @Override public boolean isMode(){
+      return true;
+    }
+  },
+  GRP{
+    @Override public boolean isMode(){
+      return true;
+    }
+  },
+  PARGRP{
+    @Override public boolean isMode(){
+      return true;
+    }
+  };
+
+  public boolean isMode(){
+    return false;
   }
 }
