@@ -115,5 +115,11 @@ public class Time {
         long enlapsed = elapsed();
         return (String.format("%05d.%d", (enlapsed/ 1000000000) % 60,(enlapsed % 1000000000)/10000000)) + " seconds";  
     }
+        //added time stamp format
+        public String timeStamp() {
+          long time = elapsed();
+			long n = time/1000000000;
+          return (String.format("%02d:%02d:%02d.%d", n / 3600, n / 60, n % 60,(time % 1000000000)/10000000));  
+      }
 
 }
