@@ -90,8 +90,7 @@ public class ChronoTimer{
 	  theTimer = new Time();
 	  mode = Mode.IND;
 	  channels = new boolean[8];
-
-	  racerQueue 	 = new LinkedList<Racer>();
+	  racerQueue = new LinkedList<Racer>();
 	  currentQueue = new LinkedList<Racer>();
 	  finishedList = new ArrayList<Racer>();
   }
