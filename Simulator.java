@@ -50,25 +50,50 @@ public class Simulator{
   }
 
   private void runFile(String filename){
-    long currTime;
+    long currTime = 0;
+    long nextTime = 0;
     String path = "testfiles/";
+    String[] split = new String[3];
     try{
       File file = new File(path + filename);
       Scanner sc = new Scanner(file);
       // handle each line of the file
       while (sc.hasNextLine()){
-        System.out.println(sc.nextLine());
+        String currLine = sc.nextLine();
+        System.out.println(currLine);
+        split = parse(currLine);
+// for realtime execution, waits length of each timestamp
+        nextTime = parseHMS(split[0]);
+        // if its the first line, no delay
+        if(currTime == 0){
+          currTime = nextTime;
+        }
+        try{
+          Thread.sleep((nextTime - currTime));
+        }catch(InterruptedException ex){
+          ex.printStackTrace();
+        }
+        //theTimer.sendEvent(strToEvent(split[1]), split[2]);
+        System.out.println(split[1]);
+        // advance the time tracker
+        currTime = nextTime;
       }
     }catch(FileNotFoundException ex){
       ex.printStackTrace();
     }
+    System.out.println("File finished executing");
     return;
   }
 
   private long parseHMS(String hms){
     //TODO: parses a timestamp in the format of hh:mm:ss(.0)
-    String[] times = hms.split(":");
-    return 0;
+    String[] split = hms.split("[:.]");
+    int[] times = new int[split.length];
+    // converts strings to ints
+    for (int i = 0; i < split.length; i++){
+      times[i] = Integer.parseInt(split[i]);
+    }
+    return 3600 * times[0] + 60 * times[1] + times[2];
   }
 
   public static void main(String[] args){
