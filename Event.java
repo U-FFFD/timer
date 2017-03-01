@@ -1,5 +1,10 @@
  public enum Event{
   // command
+  FILE{
+    @Override public boolean needsArg(){
+      return true;
+    }
+  },
   EVENT{
     @Override public boolean needsArg(){
       return true;

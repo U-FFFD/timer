@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Simulator{
 
@@ -11,6 +13,8 @@ public class Simulator{
     Event inputEvent = null;
     int arg = -1;
 
+    System.out.println("Welcome to ChronoTimer Simulator\nEnter FILE <filename> to load, or type commands for manual mode");
+
     while (running){
       // wait for a valid input
       while (inputEvent == null){
@@ -19,7 +23,10 @@ public class Simulator{
         inputEvent = strToEvent(split[0]);
       }
       if (inputEvent == Event.EXIT){
-        System.exit(0);
+        running = false;
+      }
+      if (inputEvent == Event.FILE){
+        runFile(split[1]);
       }
       theTimer.sendEvent(inputEvent, split[1]);
       inputEvent = null;
@@ -40,6 +47,27 @@ public class Simulator{
     }
 
     return null;
+  }
+
+  private void runFile(String filename){
+    long currTime;
+    String path = "testfiles/";
+    try{
+      File file = new File(path + filename);
+      Scanner sc = new Scanner(file);
+      // handle each line of the file
+      while (sc.hasNextLine()){
+
+      }
+    }catch(FileNotFoundException ex){
+      ex.printStackTrace();
+    }
+  }
+
+  private long parseHMS(String hms){
+    //TODO: parses a timestamp in the format of hh:mm:ss(.0)
+    String[] times = hms.split(":");
+    return 0;
   }
 
   public static void main(String[] args){

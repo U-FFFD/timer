@@ -21,10 +21,10 @@ public class ChronoTimer{
 	    PARGRP
   }
   // enum defines the event commands
-  private boolean running() = false;
+  private boolean running = false;
   private Time theTimer;
   // default to IND mode
-  private Mode mode = IND;
+  private Mode mode = Mode.IND;
   // tracks whether channels are enabled
   private boolean[] channels = new boolean[8];
 
@@ -86,16 +86,16 @@ public class ChronoTimer{
   }
 
   private void reset() {
-	  running() = false;
-	  theTimer = new Timer();
-	  mode = IND;
+	  running = false;
+	  theTimer = new Time();
+	  mode = Mode.IND;
 	  channels = new boolean[8];
 
 	  racerQueue 	 = new LinkedList<Racer>();
 	  currentQueue = new LinkedList<Racer>();
 	  finishedList = new ArrayList<Racer>();
   }
-  
+
   private void powerup(){
 
   }
@@ -119,9 +119,9 @@ public class ChronoTimer{
 	  racerQueue.add(new Racer(id));
   }
 
-  private void toggleChannel(String channel){
+  private void toggleChannel(String ch){
     // parse string to int, converts range 1-8 to 0-7
-    int channel = Integer.parseInt(channel) - 1;
+    int channel = Integer.parseInt(ch) - 1;
     // toggles that channel
     channels[channel] = !channels[channel];
   }
@@ -159,9 +159,6 @@ public class ChronoTimer{
 
     // TODO create state of racer.
 
-    public Racer(){
-      id = racerCount++;
-    }
     public Racer(int idNum) {
         id = idNum;
     }
