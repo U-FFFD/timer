@@ -73,6 +73,7 @@ public class ChronoTimer{
         toggleChannel(arg);
         break;
       case TRIG:
+    	triggerChannel(arg);
         break;
       case START:
         startRacer();
@@ -124,6 +125,21 @@ public class ChronoTimer{
     // toggles that channel
     channels[channel] = !channels[channel];
   }
+  
+  private void triggerChannel(String ch){
+	    // parse string to int, converts range 1-8 to 0-7
+	    int channel = Integer.parseInt(ch) - 1;
+	    
+	    // checks if the channel is active
+	    if (channels[channel]) {
+	    	//starts a racer if the channel is odd
+	    	if (channel%2 == 1)
+	    		startRacer();
+	    	//ends a racer if the channel is even
+	    	else
+	    		finishRacer();
+	    }
+	  }
 
   private void startRacer(){
     // moves racer from racerQueue to the currently racing queue and sets their start time.
