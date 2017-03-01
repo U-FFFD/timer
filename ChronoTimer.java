@@ -86,12 +86,10 @@ public class ChronoTimer{
   }
 
   private void reset() {
-	  running() = false;
 	  theTimer = new Timer();
 	  mode = IND;
 	  channels = new boolean[8];
-
-	  racerQueue 	 = new LinkedList<Racer>();
+	  racerQueue = new LinkedList<Racer>();
 	  currentQueue = new LinkedList<Racer>();
 	  finishedList = new ArrayList<Racer>();
   }
