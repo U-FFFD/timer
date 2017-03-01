@@ -23,7 +23,8 @@ public class ChronoTimer{
   // enum defines the event commands
   private boolean running() = false;
   private Time theTimer;
-  private Mode mode = null;
+  // default to IND mode
+  private Mode mode = IND;
   // tracks whether channels are enabled
   private boolean[] channels = new boolean[8];
 
@@ -43,7 +44,6 @@ public class ChronoTimer{
   }
 
   private void handleEvent(Event e, String arg){
-<<<<<<< HEAD
     switch (e){
       case EVENT:
         setMode(arg);
@@ -63,6 +63,7 @@ public class ChronoTimer{
       case TIME:
         break;
       case DNF:
+        dnfRacer();
         break;
       case CANCEL:
         break;
