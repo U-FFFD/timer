@@ -14,28 +14,10 @@ import java.util.*;
 
 public class ChronoTimer{
   // enum defines the event commands
-  public enum Event{
-    POWER,
-    EXIT,
-    RESET,
-    TIME,
-    DNF,
-    CANCEL,
-    TOG,
-    TRIG,
-    START,
-    FINISH;
-    enum MODE{
-      IND,
-      PARIND,
-      GRP,
-      PARGRP
-    };
-  }
 
   private Time theTimer;
   private int racerCount;
-  private Event.MODE;
+  private Event.MODE mode;
 
   private Queue<Racer> racerQueue = new LinkedList<Racer>();
 
@@ -47,7 +29,7 @@ public class ChronoTimer{
   // Used by simulator to pass in events
   public void sendEvent(Event e, int arg)
   {
-    if 
+    if
     handleEvent(e, arg);
   }
 

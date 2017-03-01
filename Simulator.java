@@ -38,6 +38,14 @@ public class Simulator{
   }
 
   public static void main(String[] args){
+    System.out.println("Available commands:");
+    for (Event e : Event.values()){
+      System.out.println(e.name());
+    }
+
+    System.out.println(Event.MODE.IND.name());
+
+
     Simulator sim = new Simulator();
     sim.listen();
   }
