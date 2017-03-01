@@ -23,7 +23,7 @@ public class Simulator{
         inputEvent = strToEvent(split[0]);
       }
       if (inputEvent == Event.EXIT){
-        running = false;
+        System.exit(0);
       }
       if (inputEvent == Event.FILE){
         runFile(split[1]);
@@ -57,11 +57,12 @@ public class Simulator{
       Scanner sc = new Scanner(file);
       // handle each line of the file
       while (sc.hasNextLine()){
-
+        System.out.println(sc.nextLine());
       }
     }catch(FileNotFoundException ex){
       ex.printStackTrace();
     }
+    return;
   }
 
   private long parseHMS(String hms){
