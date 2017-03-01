@@ -87,7 +87,7 @@ public class ChronoTimer{
   private void reset() {
 	  running() = false;
 	  theTimer = new Timer();
-	  mode = Mode.IND;
+	  mode = IND;
 	  channels = new boolean[8];
 
 	  racerQueue 	 = new LinkedList<Racer>();
