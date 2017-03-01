@@ -20,16 +20,16 @@ public class ChronoTimer{
     PARGRP
   }
   // enum defines the event commands
-
+  private boolean running() = false;
   private Time theTimer;
-  private int racerCount;
   private Mode mode = null;
+  // tracks whether channels are enabled
+  private boolean[] channels = new boolean[8];
 
   private Queue<Racer> racerQueue = new LinkedList<Racer>();
 
   public ChronoTimer(){
     theTimer = new Time();
-    racerCount = 0;
   }
 
   // Used by simulator to pass in events
@@ -45,6 +45,14 @@ public class ChronoTimer{
         setMode(arg);
         break;
       case POWER:
+        if (!running){
+          running = true;
+          powerup();
+        }
+        else{
+          running = false;
+          powerdown();
+        }
         break;
       case RESET:
         break;
@@ -55,6 +63,7 @@ public class ChronoTimer{
       case CANCEL:
         break;
       case TOG:
+        toggleChannel(arg);
         break;
       case TRIG:
         break;
@@ -69,6 +78,14 @@ public class ChronoTimer{
     }
   }
 
+  private void powerup(){
+
+  }
+
+  private void powerdown(){
+
+  }
+
   private void setMode(String mode){
     if (mode != null){
       for (Mode m : Mode.values()){
@@ -78,6 +95,13 @@ public class ChronoTimer{
         }
       }
     }
+  }
+
+  private void toggleChannel(String channel){
+    // parse string to int, converts range 1-8 to 0-7
+    int channel = Integer.parseInt(channel) - 1;
+    // toggles that channel
+    channels[channel] = !channels[channel];
   }
 
   private void startRacer(){
