@@ -12,6 +12,8 @@
 
 import java.util.*;
 
+import timertest.ChronoTimer.Racer;
+
 public class ChronoTimer{
 
 	public enum Mode{
@@ -68,6 +70,7 @@ public class ChronoTimer{
         dnfRacer();
         break;
       case CANCEL:
+    	  cancel();
         break;
       case TOG:
         toggleChannel(arg);
@@ -94,6 +97,14 @@ public class ChronoTimer{
 	  racerQueue = new LinkedList<Racer>();
 	  currentQueue = new LinkedList<Racer>();
 	  finishedList = new ArrayList<Racer>();
+  }
+  
+  private void cancel() {
+	  while (!racerQueue.isEmpty()) {
+		  currentQueue.add(racerQueue.remove());
+	  }
+	  racerQueue = currentQueue;
+	  currentQueue = new LinkedList<Racer>();
   }
 
   private void powerup(){
@@ -151,6 +162,10 @@ public class ChronoTimer{
   public void dnfRacer() {
 	  // TODO
 
+  }
+  
+  private void cancel() {
+	  
   }
 
   private void finishRacer(){
