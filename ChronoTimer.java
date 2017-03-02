@@ -106,6 +106,8 @@ public class ChronoTimer{
 	  racerQueue = new LinkedList<Racer>();
 	  currentQueue = new LinkedList<Racer>();
 	  finishedList = new ArrayList<Racer>();
+	  theTimer.stop();
+	  theTimer.start();
   }
 
   private void cancel() {
