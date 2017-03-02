@@ -56,6 +56,7 @@ public class ChronoTimer{
     	reset();
         break;
       case TIME:
+	setTime();
         break;
       case NEWRUN:
         break;
@@ -127,7 +128,14 @@ public class ChronoTimer{
 	        }
 	      }
 	    }
-	  }
+  }
+	
+  public void setTime(String hms) {
+	  theTimer.stop();
+	  // may need to check form!! 
+	  theTimer.setTime(hms);
+	  theTimer.start();	  
+  }
 
   public void addRacer(int id) {
 	  racerQueue.add(new Racer(id));
