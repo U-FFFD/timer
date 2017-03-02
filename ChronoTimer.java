@@ -103,6 +103,7 @@ public class ChronoTimer{
         }
         else{
           running = false;
+	  theTimer.stop();
         }
   }
 
