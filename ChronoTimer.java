@@ -85,6 +85,9 @@ public class ChronoTimer{
       case FINISH:
         triggerChannel("2");
         break;
+      case PRINT:
+        print();
+        break;
       default:
         System.out.println("This command not supported yet");
         break;
@@ -188,6 +191,12 @@ public class ChronoTimer{
 	  finishedList.add(dnfRacer);
   }
 
+  private void print(){
+    for (Racer r : finishedList){
+      System.out.println(r.toString());
+    }
+  }
+
   private void newRun(){
     //TODO: set up a new run with empty queues
   }
@@ -220,6 +229,10 @@ public class ChronoTimer{
 
     public Racer(int idNum) {
         id = idNum;
+    }
+
+    public String toString(){
+      return "" + id + ": \n  Start: " + startTime + "\n    End: " + endTime;
     }
   }
 }
