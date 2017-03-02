@@ -12,8 +12,6 @@
 
 import java.util.*;
 
-import timertest.ChronoTimer.Racer;
-
 public class ChronoTimer{
 
 	public enum Mode{
@@ -166,9 +164,7 @@ public class ChronoTimer{
 	  finishedList.add(dnfRacer);
   }
   
-  private void cancel() {
-	  
-  }
+
 
   private void finishRacer(){
     // remove top racer from queue
