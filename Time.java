@@ -116,18 +116,21 @@ public class Time {
         return (String.format("%05d.%d", (enlapsed/ 1000000000) % 60,(enlapsed % 1000000000)/10000000)) + " seconds";  
     }
       // 11:02:22.54
-      public long setTime(String time){
+     public long setTime(String time){
     	  final long MULT_H = 3600000000000L;
     	  final long MULT_M = 60000000000L;
     	  final long MULT_S = 1000000000L;
+    	  final long MULT_MS = 10000000L;
     	  String h = time.substring(0, 2);
     	  String m = time.substring(3, 5);
-    	  String s = time.substring(6,time.length());
+    	  String s = time.substring(6,8);
+    	  String ms = time.substring(9,time.length());
     	  
     	  Long hL = Long.parseLong(h) * MULT_H;
     	  Long mL = Long.parseLong(m) * MULT_M;
     	  Long sL = Long.parseLong(s) * MULT_S;
-    	  offset = hL + mL+ sL;
+    	  Long msL = Long.parseLong(ms) * MULT_MS;
+    	  offset = hL + mL+ sL + msL;
     	  
     	  return offset;  
       }
