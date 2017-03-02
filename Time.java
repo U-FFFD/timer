@@ -136,6 +136,6 @@ public class Time {
         public String timeStamp() {
         	long time = elapsed() + offset;
 			long n = time/1000000000;
-          return (String.format("%02d:%02d:%02d.%d", n / 3600, (n / 60)%60, n % 60,(time % 1000000000)/10000000));  
+          return (String.format("%02d:%02d:%02d.%d", (n / 3600)%24, (n / 60)%60, n % 60,(time % 1000000000)/10000000));  
       }
 }
