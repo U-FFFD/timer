@@ -12,7 +12,7 @@
 
 import java.util.*;
 
-//import timertest.ChronoTimer.Racer;
+import timertest.ChronoTimer.Racer;
 
 public class ChronoTimer{
 
@@ -98,7 +98,7 @@ public class ChronoTimer{
 	  currentQueue = new LinkedList<Racer>();
 	  finishedList = new ArrayList<Racer>();
   }
-
+  
   private void cancel() {
 	  while (!racerQueue.isEmpty()) {
 		  currentQueue.add(racerQueue.remove());
@@ -108,11 +108,11 @@ public class ChronoTimer{
   }
 
   private void powerup(){
-
+	  reset();
   }
 
   private void powerdown(){
-
+	  
   }
 
   private void setMode(String mode){
@@ -136,11 +136,11 @@ public class ChronoTimer{
     // toggles that channel
     channels[channel] = !channels[channel];
   }
-
+  
   private void triggerChannel(String ch){
 	    // parse string to int, converts range 1-8 to 0-7
 	    int channel = Integer.parseInt(ch) - 1;
-
+	    
 	    // checks if the channel is active
 	    if (channels[channel]) {
 	    	//starts a racer if the channel is odd
@@ -160,8 +160,19 @@ public class ChronoTimer{
   }
 
   public void dnfRacer() {
-	  // TODO
-
+	  // remove top racer from queue
+	  Racer dnfRacer = currentQueue.remove();
+	  
+	  // set end time and race time to negative values
+	  dnfRacer.endTime = -1;
+	  dnfRacer.raceTime = -1;
+	  
+	  // add DNF racer to finished list
+	  finishedList.add(dnfRacer);
+  }
+  
+  private void cancel() {
+	  
   }
 
   private void finishRacer(){
