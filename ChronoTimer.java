@@ -28,8 +28,8 @@ public class ChronoTimer{
   // tracks whether channels are enabled
   private boolean[] channels = new boolean[8];
 
-  private Queue<Racer> 		racerQueue 	 = new LinkedList<Racer>();
-  private Queue<Racer> 		currentQueue = new LinkedList<Racer>();
+  private Queue<Racer> 		waitingQueue 	 = new LinkedList<Racer>();
+  private Queue<Racer> 		racingQueue = new LinkedList<Racer>();
   private ArrayList<Racer> 	finishedList = new ArrayList<Racer>();
 
 
@@ -56,7 +56,7 @@ public class ChronoTimer{
     	reset();
         break;
       case TIME:
-	      setTime(arg);
+	      setTime();
         break;
       case NEWRUN:
         newRun();
@@ -80,10 +80,10 @@ public class ChronoTimer{
     	triggerChannel(arg);
         break;
       case START:
-        triggerChannel("1");
+        startRacer();
         break;
       case FINISH:
-        triggerChannel("2");
+        finishRacer();
         break;
       default:
         System.out.println("This command not supported yet");
@@ -106,19 +106,19 @@ public class ChronoTimer{
 	  theTimer = new Time();
 	  mode = Mode.IND;
 	  channels = new boolean[8];
-	  racerQueue = new LinkedList<Racer>();
-	  currentQueue = new LinkedList<Racer>();
+	  waitingQueue = new LinkedList<Racer>();
+	  racingQueue = new LinkedList<Racer>();
 	  finishedList = new ArrayList<Racer>();
 	  theTimer.stop();
 	  theTimer.start();
   }
 
   private void cancel() {
-	  while (!racerQueue.isEmpty()) {
-		  currentQueue.add(racerQueue.remove());
+	  while (!waitingQueue.isEmpty()) {
+		  racingQueue.add(waitingQueue.remove());
 	  }
-	  racerQueue = currentQueue;
-	  currentQueue = new LinkedList<Racer>();
+	  waitingQueue = racingQueue;
+	  racingQueue = new LinkedList<Racer>();
   }
 
   private void setMode(String mode){
@@ -140,7 +140,7 @@ public class ChronoTimer{
   }
 
   public void addRacer(int id) {
-	  racerQueue.add(new Racer(id));
+	  waitingQueue.add(new Racer(id));
   }
 
   private void toggleChannel(String ch){
@@ -158,27 +158,27 @@ public class ChronoTimer{
 	    if (channels[channel]) {
 	    	//starts a racer if the channel is odd
 	    	if (channel%2 == 1){
-	    	if(currentQueue.isEmpty()){return;}
+	    	if(racingQueue.isEmpty()){return;}
 	    		startRacer();
 	    	}
 	    	//ends a racer if the channel is even
 	    	else{
-	    		if(racerQueue.isEmpty()){return;}
+	    		if(waitingQueue.isEmpty()){return;}
 	    		finishRacer();
 	    	}
 	    }
 	  }
 
   private void startRacer(){
-    // moves racer from racerQueue to the currently racing queue and sets their start time.
-	  Racer tempRacer = racerQueue.remove();
+    // moves racer from waitingQueue to the currently racing queue and sets their start time.
+	  Racer tempRacer = waitingQueue.remove();
 	  tempRacer.startTime = theTimer.getTime();
-	  currentQueue.add(tempRacer);
+	  racingQueue.add(tempRacer);
   }
 
   public void dnfRacer() {
 	  // remove top racer from queue
-	  Racer dnfRacer = currentQueue.remove();
+	  Racer dnfRacer = racingQueue.remove();
 
 	  // set end time and race time to negative values
 	  dnfRacer.endTime = -1;
@@ -199,7 +199,7 @@ public class ChronoTimer{
 
   private void finishRacer(){
     // remove top racer from queue
-    Racer finishedRacer = currentQueue.remove();
+    Racer finishedRacer = racingQueue.remove();
 
     // set their finish time
     finishedRacer.endTime = theTimer.getTime();
