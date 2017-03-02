@@ -85,6 +85,8 @@ public class ChronoTimer{
       case FINISH:
         finishRacer();
         break;
+      case PRINT:
+        print();
       default:
         System.out.println("This command not supported yet");
         break;
@@ -215,6 +217,12 @@ public class ChronoTimer{
 	}
   }
 
+  public void print(){
+    for (Racer r : finishedList){
+      System.out.println(r.toString());
+    }
+  }
+
   // inner class for encapsulating a racer's data
   private class Racer{
     public double startTime;
@@ -226,6 +234,10 @@ public class ChronoTimer{
 
     public Racer(int idNum) {
         id = idNum;
+    }
+
+    public String toString(){
+      return "Racer " + id + ":\n  Start: " + startTime + "\n  End:   " + endTime;
     }
   }
 }
