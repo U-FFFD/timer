@@ -1,17 +1,17 @@
 
-
 public class Time {
     private boolean running;
     private boolean paused; // not counting but start time is preseved
     private long start; //start time in microseconds
     private long pausedStart; // start time of current paused start
     private long end;
-
+    private long offset;
 
     public Time() {
         this.pausedStart = 0;
         this.start = 0;
         this.end = 0;
+        this.offset = 0;
     }
 
     /**
@@ -115,11 +115,27 @@ public class Time {
         long enlapsed = elapsed();
         return (String.format("%05d.%d", (enlapsed/ 1000000000) % 60,(enlapsed % 1000000000)/10000000)) + " seconds";  
     }
-        //added time stamp format
-        public String timeStamp() {
-          long time = elapsed();
-			long n = time/1000000000;
-          return (String.format("%02d:%02d:%02d.%d", n / 3600, n / 60, n % 60,(time % 1000000000)/10000000));  
+      // 11:02:22.54
+      public long setTime(String time){
+    	  final long MULT_H = 3600000000000L;
+    	  final long MULT_M = 60000000000L;
+    	  final long MULT_S = 1000000000L;
+    	  String h = time.substring(0, 2);
+    	  String m = time.substring(3, 5);
+    	  String s = time.substring(6,time.length());
+    	  
+    	  Long hL = Long.parseLong(h) * MULT_H;
+    	  Long mL = Long.parseLong(m) * MULT_M;
+    	  Long sL = Long.parseLong(s) * MULT_S;
+    	  offset = hL + mL+ sL;
+    	  
+    	  return offset;  
       }
-
+    
+        // returns time + set time in hh:mm:ss.ss
+        public String timeStamp() {
+        	long time = elapsed() + offset;
+			long n = time/1000000000;
+          return (String.format("%02d:%02d:%02d.%d", n / 3600, (n / 60)%60, n % 60,(time % 1000000000)/10000000));  
+      }
 }
