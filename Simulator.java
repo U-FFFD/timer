@@ -71,7 +71,7 @@ public class Simulator{
         String currLine = sc.nextLine();
         System.out.println(currLine);
         split = parse(currLine);
-// for realtime execution, waits length of each timestamp
+        // for realtime execution, waits length of each timestamp
         nextTime = parseHMS(split[0]);
         // if its the first line, no delay
         if(currTime == 0){
