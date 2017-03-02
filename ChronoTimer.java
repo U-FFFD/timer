@@ -10,6 +10,8 @@
   * Owen
 */
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class ChronoTimer{
@@ -114,6 +116,7 @@ public class ChronoTimer{
 	  finishedList = new ArrayList<Racer>();
 	  theTimer.stop();
 	  theTimer.start();
+
   }
 
   private void cancel() {
@@ -159,16 +162,17 @@ public class ChronoTimer{
 
 	    // checks if the channel is active
 	    if (channels[channel]) {
+	    	channel = channel+1; // must add one back for %2 to work
 	    	//starts a racer if the channel is odd
 	    	if (channel%2 == 1){
-	    	if(waitingQueue.isEmpty()){return;}
-	    		startRacer();
-	    	}
-	    	//ends a racer if the channel is even
-	    	else{
-	    		if(racingQueue.isEmpty()){return;}
-	    		finishRacer();
-	    	}
+		    	if(waitingQueue.isEmpty()){return;}
+		    		startRacer();
+		    	}
+		    	//ends a racer if the channel is even
+		    else{
+		    		if(racingQueue.isEmpty()){return;}
+		    		finishRacer();
+		    }
 	    }
 	  }
 
@@ -196,13 +200,18 @@ public class ChronoTimer{
   }
 
   private void newRun(){
-    //TODO: set up a new run with empty queues
+    // set up a new run with empty queues
+	  waitingQueue = new LinkedList<Racer>();
+	  racingQueue = new LinkedList<Racer>();
+	  finishedList = new ArrayList<Racer>();
   }
 
   private void endRun(){
-    //TODO: ends the run, clearing memory n stuff
+    // ends the run, clearing memory n stuff
+	  waitingQueue = new LinkedList<Racer>();
+	  racingQueue = new LinkedList<Racer>();
+	  finishedList = new ArrayList<Racer>();
   }
-
 
   private void finishRacer(){
     // remove top racer from queue
@@ -212,6 +221,11 @@ public class ChronoTimer{
 	    // set their finish time
 	    finishedRacer.endTime = theTimer.getTime();
 	    finishedRacer.raceTime = finishedRacer.endTime - finishedRacer.startTime;
+	    
+	    // Round to 2 decimal places. (Hundredths of second)
+	    BigDecimal bd = new BigDecimal(finishedRacer.raceTime);
+	    bd = bd.setScale(2, RoundingMode.HALF_UP);
+	    finishedRacer.raceTime = bd.doubleValue();
 
 	    //store finished racer in finished list
 	    finishedList.add(finishedRacer);
@@ -238,7 +252,7 @@ public class ChronoTimer{
     }
 
     public String toString(){
-      return "Racer " + id + ":\n  Start: " + startTime + "\n  End:   " + endTime;
+      return ("Racer " + id + ":\n  Start: " + startTime + "\n  End:   " + endTime + ("\n  Time of Race: " + raceTime));
     }
   }
 }
