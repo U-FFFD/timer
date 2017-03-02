@@ -56,7 +56,7 @@ public class ChronoTimer{
     	reset();
         break;
       case TIME:
-	      setTime();
+	      setTime(arg);
         break;
       case NEWRUN:
         newRun();
@@ -182,11 +182,11 @@ public class ChronoTimer{
 	  // remove top racer from queue
 	  if(!racingQueue.isEmpty()) {
 		  Racer dnfRacer = racingQueue.remove();
-	
+
 		  // set end time and race time to negative values
 		  dnfRacer.endTime = -1;
 		  dnfRacer.raceTime = -1;
-	
+
 		  // add DNF racer to finished list
 		  finishedList.add(dnfRacer);
 	  }
@@ -205,11 +205,11 @@ public class ChronoTimer{
     // remove top racer from queue
 	if(!racingQueue.isEmpty()) {
 	    Racer finishedRacer = racingQueue.remove();
-	
+
 	    // set their finish time
 	    finishedRacer.endTime = theTimer.getTime();
 	    finishedRacer.raceTime = finishedRacer.endTime - finishedRacer.startTime;
-	
+
 	    //store finished racer in finished list
 	    finishedList.add(finishedRacer);
 	}
