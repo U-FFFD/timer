@@ -59,9 +59,6 @@ public class Simulator{
     long nextTime = 0;
     String path = "testfiles/";
     String[] split = new String[3];
-    if(split[2] == null){
-      split[2] = "";
-    }
     try{
       File file = new File(path + filename);
       Scanner sc = new Scanner(file);

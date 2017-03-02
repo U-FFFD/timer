@@ -56,10 +56,13 @@ public class ChronoTimer{
     	reset();
         break;
       case TIME:
+        //TODO: Set system time to inputted time
         break;
       case NEWRUN:
+        newRun();
         break;
       case ENDRUN:
+        endRun();
         break;
       case NUM:
         addRacer(Integer.parseInt(arg));
