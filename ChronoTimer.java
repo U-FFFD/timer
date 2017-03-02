@@ -85,9 +85,6 @@ public class ChronoTimer{
       case FINISH:
         finishRacer();
         break;
-      case PRINT:
-        print();
-        break;
       default:
         System.out.println("This command not supported yet");
         break;
@@ -174,27 +171,25 @@ public class ChronoTimer{
 
   private void startRacer(){
     // moves racer from waitingQueue to the currently racing queue and sets their start time.
-	  Racer tempRacer = waitingQueue.remove();
-	  tempRacer.startTime = theTimer.getTime();
-	  racingQueue.add(tempRacer);
+	  if (!waitingQueue.isEmpty()) {
+		  Racer tempRacer = waitingQueue.remove();
+		  tempRacer.startTime = theTimer.getTime();
+		  racingQueue.add(tempRacer);
+	  }
   }
 
   public void dnfRacer() {
 	  // remove top racer from queue
-	  Racer dnfRacer = racingQueue.remove();
-
-	  // set end time and race time to negative values
-	  dnfRacer.endTime = -1;
-	  dnfRacer.raceTime = -1;
-
-	  // add DNF racer to finished list
-	  finishedList.add(dnfRacer);
-  }
-
-  private void print(){
-    for (Racer r : finishedList){
-      System.out.println(r.toString());
-    }
+	  if(!racingQueue.isEmpty()) {
+		  Racer dnfRacer = racingQueue.remove();
+	
+		  // set end time and race time to negative values
+		  dnfRacer.endTime = -1;
+		  dnfRacer.raceTime = -1;
+	
+		  // add DNF racer to finished list
+		  finishedList.add(dnfRacer);
+	  }
   }
 
   private void newRun(){
@@ -208,14 +203,16 @@ public class ChronoTimer{
 
   private void finishRacer(){
     // remove top racer from queue
-    Racer finishedRacer = racingQueue.remove();
-
-    // set their finish time
-    finishedRacer.endTime = theTimer.getTime();
-    finishedRacer.raceTime = finishedRacer.endTime - finishedRacer.startTime;
-
-    //store finished racer in finished list
-    finishedList.add(finishedRacer);
+	if(!racingQueue.isEmpty()) {
+	    Racer finishedRacer = racingQueue.remove();
+	
+	    // set their finish time
+	    finishedRacer.endTime = theTimer.getTime();
+	    finishedRacer.raceTime = finishedRacer.endTime - finishedRacer.startTime;
+	
+	    //store finished racer in finished list
+	    finishedList.add(finishedRacer);
+	}
   }
 
   // inner class for encapsulating a racer's data
@@ -229,10 +226,6 @@ public class ChronoTimer{
 
     public Racer(int idNum) {
         id = idNum;
-    }
-
-    public String toString(){
-      return "" + id + ": \n  Start: " + startTime + "\n    End: " + endTime;
     }
   }
 }
