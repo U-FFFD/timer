@@ -56,7 +56,7 @@ public class ChronoTimer{
     	reset();
         break;
       case TIME:
-	      setTime();
+	      setTime(arg);
         break;
       case NEWRUN:
         newRun();
@@ -80,10 +80,10 @@ public class ChronoTimer{
     	triggerChannel(arg);
         break;
       case START:
-        startRacer();
+        triggerChannel("1");
         break;
       case FINISH:
-        finishRacer();
+        triggerChannel("2");
         break;
       default:
         System.out.println("This command not supported yet");
