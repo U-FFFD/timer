@@ -56,7 +56,7 @@ public class ChronoTimer{
     	reset();
         break;
       case TIME:
-	      setTime();
+	      setTime(arg);
         break;
       case NEWRUN:
         newRun();
