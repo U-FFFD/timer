@@ -57,6 +57,7 @@ public class Simulator{
     try{
       File file = new File(path + filename);
       Scanner sc = new Scanner(file);
+      estimatedCompletionTime(file);
       // handle each line of the file
       while (sc.hasNextLine()){
         String currLine = sc.nextLine();
@@ -83,6 +84,30 @@ public class Simulator{
     }
     System.out.println("File finished executing");
     return;
+  }
+
+  private void estimatedCompletionTime(File f){
+    try{
+      Scanner sc = new Scanner(f);
+      String firstLine = sc.nextLine();
+      String lastLine = sc.nextLine();
+
+      while (sc.hasNextLine()){
+        lastLine = sc.nextLine();
+      }
+
+      String[] splitFirstLine = parse(firstLine);
+      String[] splitLastLine = parse(lastLine);
+
+      long estTimeSec = parseHMS(splitLastLine[0]) - parseHMS(splitFirstLine[0]);
+
+      float estTimeHrs = estTimeSec / 3600;
+
+      System.out.println("Estimated completion time: " + estTimeHrs + " hour(s)");
+    } catch(FileNotFoundException ex){
+      ex.printStackTrace();
+    }
+
   }
 
   private long parseHMS(String hms){
