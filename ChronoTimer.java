@@ -56,7 +56,7 @@ public class ChronoTimer{
     	reset();
         break;
       case TIME:
-        //TODO: Set system time to inputted time
+	      setTime();
         break;
       case NEWRUN:
         newRun();
@@ -109,6 +109,8 @@ public class ChronoTimer{
 	  racerQueue = new LinkedList<Racer>();
 	  currentQueue = new LinkedList<Racer>();
 	  finishedList = new ArrayList<Racer>();
+	  theTimer.stop();
+	  theTimer.start();
   }
 
   private void cancel() {
@@ -128,7 +130,14 @@ public class ChronoTimer{
 	        }
 	      }
 	    }
-	  }
+  }
+
+  public void setTime(String hms) {
+	  theTimer.stop();
+	  // may need to check form!!
+	  theTimer.setTime(hms);
+	  theTimer.start();
+  }
 
   public void addRacer(int id) {
 	  racerQueue.add(new Racer(id));
@@ -141,18 +150,22 @@ public class ChronoTimer{
     channels[channel] = !channels[channel];
   }
 
-  private void triggerChannel(String ch){
+    private void triggerChannel(String ch){
 	    // parse string to int, converts range 1-8 to 0-7
 	    int channel = Integer.parseInt(ch) - 1;
 
 	    // checks if the channel is active
 	    if (channels[channel]) {
 	    	//starts a racer if the channel is odd
-	    	if (channel%2 == 1)
+	    	if (channel%2 == 1){
+	    	if(currentQueue.isEmpty()){return;}
 	    		startRacer();
+	    	}
 	    	//ends a racer if the channel is even
-	    	else
+	    	else{
+	    		if(racerQueue.isEmpty()){return;}
 	    		finishRacer();
+	    	}
 	    }
 	  }
 
