@@ -28,7 +28,12 @@ public class Simulator{
       if (inputEvent == Event.FILE){
         runFile(split[1]);
       }
-      theTimer.sendEvent(inputEvent, split[1]);
+      // if there is no arg value, was giving array out of bounds
+      if(split.length == 2){
+          theTimer.sendEvent(inputEvent, split[1]);
+      } else {
+        theTimer.sendEvent(inputEvent, null);
+      }
       inputEvent = null;
     }
   }
@@ -54,6 +59,9 @@ public class Simulator{
     long nextTime = 0;
     String path = "testfiles/";
     String[] split = new String[3];
+    if(split[2] == null){
+      split[2] = "";
+    }
     try{
       File file = new File(path + filename);
       Scanner sc = new Scanner(file);
@@ -74,8 +82,17 @@ public class Simulator{
         }catch(InterruptedException ex){
           ex.printStackTrace();
         }
-        //theTimer.sendEvent(strToEvent(split[1]), split[2]);
-        System.out.println(split[1]);
+        Event e = strToEvent(split[1]);
+        // System.out.println(e.name());
+        if (e == Event.EXIT){
+          System.exit(0);
+        }
+        if(split.length == 3){
+            theTimer.sendEvent(e, split[2]);
+        } else {
+          theTimer.sendEvent(e, null);
+        }
+
         // advance the time tracker
         currTime = nextTime;
       }

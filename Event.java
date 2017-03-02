@@ -1,5 +1,13 @@
  public enum Event{
   // command
+  NEWRUN,
+  ENDRUN,
+  NUM{
+    @Override public boolean needsArg(){
+      return true;
+    }
+  },
+  PRINT,
   FILE{
     @Override public boolean needsArg(){
       return true;
