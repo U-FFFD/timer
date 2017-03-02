@@ -87,6 +87,7 @@ public class ChronoTimer{
         break;
       case PRINT:
         print();
+        break;
       default:
         System.out.println("This command not supported yet");
         break;
