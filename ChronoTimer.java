@@ -158,12 +158,12 @@ public class ChronoTimer{
 	    if (channels[channel]) {
 	    	//starts a racer if the channel is odd
 	    	if (channel%2 == 1){
-	    	if(racingQueue.isEmpty()){return;}
+	    	if(waitingQueue.isEmpty()){return;}
 	    		startRacer();
 	    	}
 	    	//ends a racer if the channel is even
 	    	else{
-	    		if(waitingQueue.isEmpty()){return;}
+	    		if(racingQueue.isEmpty()){return;}
 	    		finishRacer();
 	    	}
 	    }
