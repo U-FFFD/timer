@@ -52,17 +52,10 @@ public class ChronoTimer{
         setMode(arg);
         break;
       case POWER:
-        if (!running){
-          running = true;
-          powerup();
-        }
-        else{
-          running = false;
-          powerdown();
-        }
+    	power();
         break;
       case RESET:
-    	  reset();
+    	reset();
         break;
       case TIME:
         break;
@@ -70,7 +63,7 @@ public class ChronoTimer{
         dnfRacer();
         break;
       case CANCEL:
-    	  cancel();
+    	cancel();
         break;
       case TOG:
         toggleChannel(arg);
@@ -87,6 +80,16 @@ public class ChronoTimer{
       default:
         break;
     }
+  }
+  
+  private void power() {
+	  if (!running){
+          running = true;
+          reset();
+        }
+        else{
+          running = false;
+        }
   }
 
   private void reset() {
@@ -105,14 +108,6 @@ public class ChronoTimer{
 	  }
 	  racerQueue = currentQueue;
 	  currentQueue = new LinkedList<Racer>();
-  }
-
-  private void powerup(){
-	  reset();
-  }
-
-  private void powerdown(){
-	  
   }
 
   private void setMode(String mode){
