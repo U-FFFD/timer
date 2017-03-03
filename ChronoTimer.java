@@ -140,10 +140,12 @@ public class ChronoTimer{
     }
 
     public void setTime(String hms) {
-        theTimer.stop();
-        // may need to check form!!
-        theTimer.setTime(hms);
-        theTimer.start();
+        if (hms.length() == 8) {
+            theTimer.stop();
+            // may need to check form!!
+            theTimer.setTime(hms);
+            theTimer.start();
+        }
     }
 
     public void addRacer(int id) {
