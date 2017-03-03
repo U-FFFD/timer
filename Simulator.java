@@ -94,9 +94,9 @@ public class Simulator{
         currTime = nextTime;
       }
     }catch(FileNotFoundException ex){
-      ex.printStackTrace();
+      System.out.println("Specified file not found.");
+      return;
     }
-    System.out.println("File finished executing");
     return;
   }
 
