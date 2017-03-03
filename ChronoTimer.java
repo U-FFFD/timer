@@ -156,25 +156,32 @@ public class ChronoTimer{
         // parse string to int, converts range 1-8 to 0-7
         int channel = Integer.parseInt(ch) - 1;
         // toggles that channel
-        channels[channel] = !channels[channel];
+        if(channel <= 7)
+            channels[channel] = !channels[channel];
     }
 
-    private void triggerChannel(String ch){
+    private void triggerChannel(String ch) {
         // parse string to int, converts range 1-8 to 0-7
         int channel = Integer.parseInt(ch) - 1;
 
         // checks if the channel is active
-        if (channels[channel]) {
-            channel = channel+1; // must add one back for %2 to work
-            //starts a racer if the channel is odd
-            if (channel%2 == 1){
-                if(waitingQueue.isEmpty()){return;}
-                startRacer();
-            }
-            //ends a racer if the channel is even
-            else{
-                if(racingQueue.isEmpty()){return;}
-                finishRacer();
+        if (channel <= 7) {
+            if (channels[channel]) {
+                channel = channel + 1; // must add one back for %2 to work
+                //starts a racer if the channel is odd
+                if (channel % 2 == 1) {
+                    if (waitingQueue.isEmpty()) {
+                        return;
+                    }
+                    startRacer();
+                }
+                //ends a racer if the channel is even
+                else {
+                    if (racingQueue.isEmpty()) {
+                        return;
+                    }
+                    finishRacer();
+                }
             }
         }
     }
