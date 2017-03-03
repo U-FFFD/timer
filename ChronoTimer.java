@@ -82,10 +82,10 @@ public class ChronoTimer{
                 triggerChannel(arg);
                 break;
             case START:
-                startRacer();
+                triggerChannel("1");
                 break;
             case FINISH:
-                finishRacer();
+                triggerChannel("2");
                 break;
             case PRINT:
                 print();
@@ -140,12 +140,10 @@ public class ChronoTimer{
     }
 
     public void setTime(String hms) {
-        if (hms.length() == 8) {
-            theTimer.stop();
-            // may need to check form!!
-            theTimer.setTime(hms);
-            theTimer.start();
-        }
+        theTimer.stop();
+        // may need to check form!!
+        theTimer.setTime(hms);
+        theTimer.start();
     }
 
     public void addRacer(int id) {
@@ -156,32 +154,25 @@ public class ChronoTimer{
         // parse string to int, converts range 1-8 to 0-7
         int channel = Integer.parseInt(ch) - 1;
         // toggles that channel
-        if(channel <= 7)
-            channels[channel] = !channels[channel];
+        channels[channel] = !channels[channel];
     }
 
-    private void triggerChannel(String ch) {
+    private void triggerChannel(String ch){
         // parse string to int, converts range 1-8 to 0-7
         int channel = Integer.parseInt(ch) - 1;
 
         // checks if the channel is active
-        if (channel <= 7) {
-            if (channels[channel]) {
-                channel = channel + 1; // must add one back for %2 to work
-                //starts a racer if the channel is odd
-                if (channel % 2 == 1) {
-                    if (waitingQueue.isEmpty()) {
-                        return;
-                    }
-                    startRacer();
-                }
-                //ends a racer if the channel is even
-                else {
-                    if (racingQueue.isEmpty()) {
-                        return;
-                    }
-                    finishRacer();
-                }
+        if (channels[channel]) {
+            channel = channel+1; // must add one back for %2 to work
+            //starts a racer if the channel is odd
+            if (channel%2 == 1){
+                if(waitingQueue.isEmpty()){return;}
+                startRacer();
+            }
+            //ends a racer if the channel is even
+            else{
+                if(racingQueue.isEmpty()){return;}
+                finishRacer();
             }
         }
     }
@@ -202,8 +193,9 @@ public class ChronoTimer{
             Racer dnfRacer = racingQueue.remove();
 
             // set end time and race time to negative values
-            dnfRacer.endTime = -1;
-            dnfRacer.raceTime = -1;
+            dnfRacer.endTime = 0;
+            dnfRacer.endStamp = "DNF (Did Not Finish)";
+            dnfRacer.raceTime = 0;
 
             // add DNF racer to finished list
             finishedList.add(dnfRacer);
@@ -257,6 +249,7 @@ public class ChronoTimer{
         public String endStamp;
         public double endTime;
         public double raceTime;
+        public String timeStamp;
         public int id;
 
         // TODO create state of racer.
@@ -265,8 +258,17 @@ public class ChronoTimer{
             id = idNum;
         }
 
+        private String timeConversion(double exactSeconds) {
+            double modSeconds = exactSeconds % 60;
+            int intSec = (int) exactSeconds;
+            int mins = (intSec/60)%60;
+            int hours = (mins/60) %24;
+
+            return hours + ":" + mins + ":" + modSeconds;
+        }
+
         public String toString(){
-            return ("Racer " + id + ":\n  Start: " + startStamp + "\n  End:   " + endStamp + ("\n  Time of Race: " + raceTime));
+            return ("Racer " + id + ":\n  Start: " + startStamp + "\n " + startTime + "\n  End:   " + endStamp + "\n" + endTime + ("\n  Time of Race: " + timeConversion(raceTime)));
         }
     }
 }
